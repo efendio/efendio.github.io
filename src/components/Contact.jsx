@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { personalInfo } from '../data/portfolioData';
 import { FaEnvelope, FaGithub, FaLinkedin, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -6,28 +7,89 @@ import { useInView } from 'react-intersection-observer';
 
 const Contact = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('');
-
+  const form = useRef();
+  
+  // Form state
+  const [formData, setFormData] = useState({
+    from_name: '',
+    from_email: '',
+    message: ''
+  });
+  
+  // UI states
+  const [status, setStatus] = useState('idle'); // idle, sending, success, error
+  const [errorMessage, setErrorMessage] = useState('');
+  
+  // Handle input changes
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
-
-  const handleSubmit = async (e) => {
+  
+  // Validate form before sending
+  const validateForm = () => {
+    if (!formData.from_name.trim()) {
+      setErrorMessage('Please enter your name');
+      return false;
+    }
+    if (!formData.from_email.trim()) {
+      setErrorMessage('Please enter your email');
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.from_email)) {
+      setErrorMessage('Please enter a valid email address');
+      return false;
+    }
+    if (!formData.message.trim()) {
+      setErrorMessage('Please enter your message');
+      return false;
+    }
+    return true;
+  };
+  
+  // Send email function
+  const sendEmail = async (e) => {
     e.preventDefault();
+    
+    // Validate
+    if (!validateForm()) {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+      return;
+    }
+    
     setStatus('sending');
+    setErrorMessage('');
     
-    // Note: For real email sending, you'll need EmailJS or a backend
-    // This is a placeholder that logs to console
-    console.log('Form submitted:', formData);
-    
-    setTimeout(() => {
-      setStatus('sent');
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setStatus(''), 3000);
-    }, 1000);
+    try {
+      const response = await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      
+      console.log('Email sent successfully!', response.text);
+      setStatus('success');
+      
+      // Reset form
+      setFormData({ from_name: '', from_email: '', message: '' });
+      form.current.reset();
+      
+      // Reset status after 3 seconds
+      setTimeout(() => setStatus('idle'), 3000);
+      
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      setStatus('error');
+      setErrorMessage('Failed to send message. Please try again later.');
+      setTimeout(() => setStatus('idle'), 3000);
+    }
   };
-
+  
   return (
     <section id="contact" ref={ref}>
       <div className="container">
@@ -42,7 +104,7 @@ const Contact = () => {
             gap: '3rem'
           }}
         >
-          {/* Contact Info */}
+          {/* Contact Info - Left Side */}
           <div>
             <h3 style={{ marginBottom: '1.5rem' }}>Contact Information</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -55,24 +117,52 @@ const Contact = () => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <FaMapMarkerAlt style={{ color: 'var(--accent)' }} /> {personalInfo.location}
               </div>
-              <a href={personalInfo.github} target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'var(--text-primary)' }}>
+              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'var(--text-primary)' }}>
                 <FaGithub style={{ color: 'var(--accent)' }} /> GitHub
               </a>
-              <a href={personalInfo.linkedin} target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'var(--text-primary)' }}>
+              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'var(--text-primary)' }}>
                 <FaLinkedin style={{ color: 'var(--accent)' }} /> LinkedIn
               </a>
             </div>
           </div>
 
-          {/* Contact Form */}
+          {/* Contact Form - Right Side */}
           <div>
             <h3 style={{ marginBottom: '1.5rem' }}>Send Me a Message</h3>
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            
+            {/* Status Messages */}
+            {status === 'success' && (
+              <div style={{
+                background: '#10b981',
+                color: 'white',
+                padding: '0.75rem',
+                borderRadius: '8px',
+                marginBottom: '1rem',
+                textAlign: 'center'
+              }}>
+                ✓ Message sent successfully! I'll get back to you soon.
+              </div>
+            )}
+            
+            {status === 'error' && errorMessage && (
+              <div style={{
+                background: '#ef4444',
+                color: 'white',
+                padding: '0.75rem',
+                borderRadius: '8px',
+                marginBottom: '1rem',
+                textAlign: 'center'
+              }}>
+                ⚠️ {errorMessage}
+              </div>
+            )}
+            
+            <form ref={form} onSubmit={sendEmail} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <input
                 type="text"
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
+                name="from_name"
+                placeholder="Your Name *"
+                value={formData.from_name}
                 onChange={handleChange}
                 required
                 style={{
@@ -80,14 +170,16 @@ const Contact = () => {
                   background: 'var(--bg-secondary)',
                   border: `1px solid var(--border)`,
                   borderRadius: '8px',
-                  color: 'var(--text-primary)'
+                  color: 'var(--text-primary)',
+                  fontSize: '1rem'
                 }}
               />
+              
               <input
                 type="email"
-                name="email"
-                placeholder="Your Email"
-                value={formData.email}
+                name="from_email"
+                placeholder="Your Email *"
+                value={formData.from_email}
                 onChange={handleChange}
                 required
                 style={{
@@ -95,12 +187,14 @@ const Contact = () => {
                   background: 'var(--bg-secondary)',
                   border: `1px solid var(--border)`,
                   borderRadius: '8px',
-                  color: 'var(--text-primary)'
+                  color: 'var(--text-primary)',
+                  fontSize: '1rem'
                 }}
               />
+              
               <textarea
                 name="message"
-                placeholder="Your Message"
+                placeholder="Your Message *"
                 value={formData.message}
                 onChange={handleChange}
                 required
@@ -111,9 +205,12 @@ const Contact = () => {
                   border: `1px solid var(--border)`,
                   borderRadius: '8px',
                   color: 'var(--text-primary)',
-                  resize: 'vertical'
+                  resize: 'vertical',
+                  fontSize: '1rem',
+                  fontFamily: 'inherit'
                 }}
               />
+              
               <button
                 type="submit"
                 disabled={status === 'sending'}
@@ -123,14 +220,20 @@ const Contact = () => {
                   color: 'white',
                   border: 'none',
                   borderRadius: '8px',
-                  cursor: 'pointer',
+                  cursor: status === 'sending' ? 'not-allowed' : 'pointer',
                   fontWeight: 'bold',
-                  transition: 'opacity 0.3s'
+                  fontSize: '1rem',
+                  transition: 'all 0.3s',
+                  opacity: status === 'sending' ? 0.7 : 1
                 }}
-                onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
-                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                onMouseEnter={e => {
+                  if (status !== 'sending') e.currentTarget.style.opacity = '0.9';
+                }}
+                onMouseLeave={e => {
+                  if (status !== 'sending') e.currentTarget.style.opacity = '1';
+                }}
               >
-                {status === 'sending' ? 'Sending...' : status === 'sent' ? '✓ Message Sent!' : 'Send Message'}
+                {status === 'sending' ? '✈️ Sending...' : '📧 Send Message'}
               </button>
             </form>
           </div>

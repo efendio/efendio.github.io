@@ -1,9 +1,9 @@
 export const personalInfo = {
   name: "Efendio De Sousa Xavier",
   title: "Web Developer & Cyber Security Graduate",
-  email: "efendioxavier@gmail.com",
+  email: "efendioxavier@xavier.com",
   github: "https://github.com/efendio",
-  linkedin: "https://linkedin.com/in/efendio",
+  //linkedin: "https://linkedin.com/in/efendio",
   location: "Dili, Timor-Leste",
   phone: "+670 75633053"
 };
@@ -20,7 +20,7 @@ export const experiences = [
       "Implement security patches and performance optimizations",
       "Ensure 99.9% system reliability in production"
     ],
-    tech: ["React.js", "Laravel", "PostgreSQL", "Docker"]
+    tech: ["React.js", "Laravel", "PostgreSQL", "Docker", "MySQL", "Wordpress"]
   },
   {
     id: 2,
@@ -64,7 +64,7 @@ export const projects = [
     id: 2,
     title: "AI-Healthcare Platform",
     description: "Digital healthcare solution with appointment scheduling, medical records, and AI diagnostic tools integration.",
-    tech: ["Django", "React.js", "TensorFlow", "PostgreSQL"],
+    tech: ["Django", "Gemini API", "PostgreSQL"],
     //github: "https://github.com/efendio/ai-healthcare",
     //live: "https://healthcare-demo.efendio.com",
     image: "/assets/healthcare.jpg"
@@ -73,7 +73,7 @@ export const projects = [
     id: 3,
     title: "Bank Security Audit",
     description: "Comprehensive security audit for Bank Syariah Indonesia, identifying vulnerabilities and compliance gaps.",
-    tech: ["Nessus", "Metasploit", "OWASP ZAP", "Report Writing"],
+    tech: ["OWASP ZAP", "Report Writing"],
     //github: "https://github.com/efendio/security-audit",
     //live: null,
     image: "/assets/audit.jpg"
@@ -82,7 +82,7 @@ export const projects = [
     id: 4,
     title: "Intrusion Detection System",
     description: "Network-based IDS using signature-based detection with real-time alerting dashboard.",
-    tech: ["Python", "Scapy", "React.js", "WebSockets"],
+    tech: ["Python", "Scapy", "WebSockets"],
     //github: "https://github.com/efendio/ids-project",
     //live: null,
     image: "/assets/ids.jpg"
