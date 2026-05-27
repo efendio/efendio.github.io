@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: "Efendio De Sousa Xavier",
   title: "Web Developer & Cyber Security Graduate",
-  email: "efendioxavier@xavier.com",
+  email: "efendioxavier@gmail.com",
   github: "https://github.com/efendio",
   //linkedin: "https://linkedin.com/in/efendio",
   location: "Dili, Timor-Leste",
