@@ -58,7 +58,7 @@ export const projects = [
     tech: ["React.js", "Node.js", "MongoDB", "JWT"],
     //github: "https://github.com/efendio/booking-system",
     //live: "https://booking-demo.efendio.com",
-    image: "/assets/booking.jpg"
+    image: "/assets/booking_ticket.png"
   },
   {
     id: 2,
@@ -67,7 +67,7 @@ export const projects = [
     tech: ["Django", "Gemini API", "PostgreSQL"],
     //github: "https://github.com/efendio/ai-healthcare",
     //live: "https://healthcare-demo.efendio.com",
-    image: "/assets/healthcare.jpg"
+    image: "/assets/ai_healthcare.jpg"
   },
   {
     id: 3,
@@ -76,7 +76,7 @@ export const projects = [
     tech: ["OWASP ZAP", "Report Writing"],
     //github: "https://github.com/efendio/security-audit",
     //live: null,
-    image: "/assets/audit.jpg"
+    image: "/assets/bank_audit.png"
   },
   {
     id: 4,
@@ -85,16 +85,16 @@ export const projects = [
     tech: ["Python", "Scapy", "WebSockets"],
     //github: "https://github.com/efendio/ids-project",
     //live: null,
-    image: "/assets/ids.jpg"
+    image: "/assets/Intrusion-Detection-System.jpeg"
   }
 ];
 
 export const skills = {
-  languages: ["JavaScript", "Python", "PHP", "C#", "SQL"],
+  languages: ["JavaScript", "Python", "PHP", "C#", "SQL", "Java", "C++", "HTML", "CSS", "JQuery", "Kotlin"],
   frontend: ["React.js", "Next.js", "Tailwind CSS", "Bootstrap"],
-  backend: ["Node.js", "Laravel", "Django", "CodeIgniter"],
+  backend: ["Node.js", "Laravel", "Django", "CodeIgniter", "Python Flask"],
   cybersecurity: ["Penetration Testing", "IDS/IPS", "SQL Injection", "Network Security"],
-  tools: ["Git", "Docker", "VS Code", "Postman", "Linux"]
+  tools: ["Git", "Docker", "VS Code", "Android Studio"]
 };
 
 export const certifications = [
