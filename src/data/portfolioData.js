@@ -17,10 +17,8 @@ export const experiences = [
     responsibilities: [
       "Develop Timor Telecom's self service web application (TT-Live)",
       "Build digital services for the public institutions of Timor-Leste",
-      "",
-      ""
     ],
-    tech: ["Cisco", "Windows Server", "Active Directory"]
+    tech: ["Next.js", "Django", "Flutter", "PostgreSQL"]
   },
   {
     id: 2,
