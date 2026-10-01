@@ -11,7 +11,7 @@ export const personalInfo = {
 export const experiences = [
   {
     id: 1,
-    title: "Develoeper",
+    title: "Developer",
     company: "Timor Telecom, Dili",
     period: "Sep 2026 – Present",
     responsibilities: [
@@ -94,6 +94,24 @@ export const projects = [
     title: "Intrusion Detection System",
     description: "Network-based IDS using signature-based detection with real-time alerting dashboard.",
     tech: ["Python", "Scapy", "WebSockets"],
+    //github: "https://github.com/efendio/ids-project",
+    //live: null,
+    image: "/assets/Intrusion-Detection-System.jpeg"
+  },
+  {
+    id: 5,
+    title: "TT Live Web Application",
+    description: "Web application for Timor Telecom's self-service platform.",
+    tech: ["Next.js", "Django", "PostgreSQL", "Flutter"],
+    //github: "https://github.com/efendio/ids-project",
+    //live: null,
+    image: "/assets/Intrusion-Detection-System.jpeg"
+  },
+  {
+    id: 5,
+    title: "Timor Telecom B2G",
+    description: "Digital services for the public institutions of Timor-Leste.",
+    tech: ["Django", "PostgreSQL"],
     //github: "https://github.com/efendio/ids-project",
     //live: null,
     image: "/assets/Intrusion-Detection-System.jpeg"
