@@ -11,9 +11,22 @@ export const personalInfo = {
 export const experiences = [
   {
     id: 1,
+    title: "Develoeper",
+    company: "Timor Telecom, Dili",
+    period: "Sep 2026 – Present",
+    responsibilities: [
+      "Develop Timor Telecom's self service web application (TT-Live)",
+      "Build digital services for the public institutions of Timor-Leste",
+      "",
+      ""
+    ],
+    tech: ["Cisco", "Windows Server", "Active Directory"]
+  },
+  {
+    id: 2,
     title: "Developer & Security",
     company: "Ministry of State Administration, Dili",
-    period: "Dec 2025 – Present",
+    period: "Dec 2025 – Jun 2026",
     responsibilities: [
       "Develop and maintain SIIGSA, SEPAA, and Portal Municipio web systems",
       "Create RESTful APIs for inter-system communication",
@@ -23,7 +36,7 @@ export const experiences = [
     tech: ["React.js", "Laravel", "PostgreSQL", "Docker", "MySQL", "Wordpress"]
   },
   {
-    id: 2,
+    id: 3,
     title: "Corporate Network Security Intern",
     company: "Timor Telecom, Dili",
     period: "Jan 2025 – May 2025",
@@ -36,7 +49,7 @@ export const experiences = [
     tech: ["Python", "Wireshark", "Snort", "Linux"]
   },
   {
-    id: 3,
+    id: 4,
     title: "IT Infrastructure Intern",
     company: "Ministry of Finance, Dili",
     period: "Sep 2024 – Jan 2025",
